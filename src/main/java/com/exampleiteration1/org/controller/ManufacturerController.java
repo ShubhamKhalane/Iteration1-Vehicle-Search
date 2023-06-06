@@ -1,6 +1,7 @@
 package com.exampleiteration1.org.controller;
 
 import com.exampleiteration1.org.entity.Manufacturer;
+import com.exampleiteration1.org.exception.ManufacturerNotFoundException;
 import com.exampleiteration1.org.service.ManufacturerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,8 +29,11 @@ public class ManufacturerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Manufacturer> getManById(@PathVariable int id){
+    public ResponseEntity<Manufacturer> getManById(@PathVariable int id) throws ManufacturerNotFoundException {
         Manufacturer mandb = manufacturerService.getManufacturerById(id);
+        if(mandb==null){
+            throw new ManufacturerNotFoundException("Manufacturer with not present with id"+id);
+        }
         return ResponseEntity.ok(mandb);
     }
 }
