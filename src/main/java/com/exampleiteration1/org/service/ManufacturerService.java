@@ -9,4 +9,6 @@ import java.util.List;
 public interface ManufacturerService {
     Manufacturer saveManufactorer(Manufacturer manufacturer);
     List<Manufacturer> fetchAll();
+
+    Manufacturer getManufacturerById(int id);
 }
