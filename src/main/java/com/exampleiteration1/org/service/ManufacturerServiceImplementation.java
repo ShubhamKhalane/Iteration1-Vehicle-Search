@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+
+import static org.apache.logging.log4j.util.StringBuilders.equalsIgnoreCase;
 
 @Service
 public class ManufacturerServiceImplementation implements ManufacturerService {
@@ -30,5 +33,20 @@ public class ManufacturerServiceImplementation implements ManufacturerService {
             return mandb.get();
         }
         return null;
+    }
+
+    @Override
+    public Manufacturer updateManufacturer(int id, Manufacturer manufacturer) {
+        Manufacturer mandb= getManufacturerById(id);
+        if(mandb!=null && Objects.nonNull(manufacturer)){
+            if(Objects.nonNull(manufacturer.getManufacturerName())&& !"".equalsIgnoreCase(manufacturer.getManufacturerName())){
+                mandb.setManufacturerName(manufacturer.getManufacturerName());
+            }
+            if(Objects.nonNull(manufacturer.getCountryOfOrigin())&& !"".equalsIgnoreCase(manufacturer.getCountryOfOrigin())){
+                mandb.setCountryOfOrigin(manufacturer.getCountryOfOrigin());
+            }
+            return(manufacturerDAO.save(mandb));
+        }return mandb;
+
     }
 }
