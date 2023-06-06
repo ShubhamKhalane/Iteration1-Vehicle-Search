@@ -1,6 +1,7 @@
 package com.exampleiteration1.org.service;
 
 import com.exampleiteration1.org.entity.Manufacturer;
+import com.exampleiteration1.org.exception.ManufacturerNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,4 +12,5 @@ public interface ManufacturerService {
     List<Manufacturer> fetchAll();
     Manufacturer getManufacturerById(int id);
     Manufacturer updateManufacturer(int id, Manufacturer manufacturer);
+    void deleteManufacturerById(int id) throws ManufacturerNotFoundException;
 }

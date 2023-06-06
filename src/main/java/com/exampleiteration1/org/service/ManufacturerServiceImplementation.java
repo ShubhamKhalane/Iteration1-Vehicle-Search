@@ -2,6 +2,7 @@ package com.exampleiteration1.org.service;
 
 import com.exampleiteration1.org.dao.ManufacturerDAO;
 import com.exampleiteration1.org.entity.Manufacturer;
+import com.exampleiteration1.org.exception.ManufacturerNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,5 +49,14 @@ public class ManufacturerServiceImplementation implements ManufacturerService {
             return(manufacturerDAO.save(mandb));
         }return mandb;
 
+    }
+
+    @Override
+    public void deleteManufacturerById(int id) throws ManufacturerNotFoundException {
+        Manufacturer manufacturer = getManufacturerById(id);
+        if(manufacturer==null){
+            throw new ManufacturerNotFoundException("Manufacturer not found with id "+id);
+
+        }manufacturerDAO.deleteById(id);
     }
 }
